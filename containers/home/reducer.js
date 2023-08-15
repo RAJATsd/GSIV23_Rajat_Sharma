@@ -12,7 +12,6 @@ const fetchMoviesSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    // Give case reducers meaningful past-tense "event"-style names
     fetchMovieListStart(state) {
       state.movieList.loading = true;
     },
@@ -34,5 +33,7 @@ export const {
   fetchMovieListError,
   fetchMovieListSuccess,
 } = fetchMoviesSlice.actions;
+
+export { initialState };
 
 export default fetchMoviesSlice.reducer;
