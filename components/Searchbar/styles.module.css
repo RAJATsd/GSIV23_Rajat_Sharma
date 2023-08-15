@@ -12,6 +12,12 @@
   box-shadow: 0px 2px 14px -4px rgba(0, 0, 0, 0.75);
 }
 
+.inputAndButtons {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
 .searchInput {
   background: #dedede;
   padding: 10px 8px;
@@ -30,4 +36,20 @@
 .searchInput input:focus-visible {
   border: none;
   outline: none;
+}
+
+.pageTitle {
+  font-size: 1.4rem;
+  vertical-align: middle;
+  padding: 9px 0;
+}
+
+.actionButton {
+  padding: 5px 20px;
+  background: greenyellow;
+  border: none;
+  border-radius: 4px;
+  height: 44px;
+  margin: 0 10px;
+  cursor: pointer;
 }

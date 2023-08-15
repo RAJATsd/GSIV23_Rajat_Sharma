@@ -20,8 +20,6 @@ const MovieDetailsContainer = () => {
   const { cast, crew } = movieCreditsData || {};
   const director = crew?.find((member) => member.department === "Directing");
 
-  console.log({ runtime });
-
   useEffect(() => {
     if (movieId) {
       dispatch(fetchMovieDetailsStart(movieId));
@@ -42,7 +40,7 @@ const MovieDetailsContainer = () => {
           {title} ({vote_average})
         </div>
         <div className={styles.metadata}>
-          {release_date} |{" "}
+          {release_date?.substring(0, 4)} |{" "}
           {runtime && (
             <span>
               {`${Math.trunc(runtime / 60) > 9 ? "" : 0}${Math.trunc(

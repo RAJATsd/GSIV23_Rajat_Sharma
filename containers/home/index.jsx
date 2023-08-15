@@ -6,15 +6,31 @@ import { useRouter } from "next/router";
 import MovieCard from "@/components/MovieCard";
 import { MOVIE_POSTER_PREFIX_URL } from "@/constants";
 import styles from "./styles.module.css";
-import { fetchMoreMoviesStart, fetchMovieListStart } from "./reducer";
-import { makeSelectMoviesList } from "./selectors";
+import {
+  fetchMoreMoviesStart,
+  fetchMovieListStart,
+  searchMoreMoviesStart,
+} from "./reducer";
+import {
+  makeSelectMoviesList,
+  makeSelectSearchedMovies,
+  makeSelectSearchQuery,
+} from "./selectors";
 
 const HomePage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { data } = useSelector(makeSelectMoviesList());
+  const { data: searchedMovieData } = useSelector(makeSelectSearchedMovies());
+  const searchQuery = useSelector(makeSelectSearchQuery());
 
   const { page, total_pages, results } = data || {};
+  const {
+    results: searchedMoviesResults,
+    page: searchPage,
+    total_pages: totalSearchPages,
+  } = searchedMovieData || {};
+  const doSearchedMovieResultsExist = searchedMoviesResults?.length > 0;
 
   useEffect(() => {
     dispatch(fetchMovieListStart());
@@ -28,11 +44,25 @@ const HomePage = () => {
     router.push(`/movie/${movieId}`);
   };
 
+  const searchMoreMovies = () => {
+    dispatch(
+      searchMoreMoviesStart({ query: searchQuery, page: searchPage + 1 })
+    );
+  };
+
   return (
     <InfiniteScroll
-      dataLength={results?.length || 0}
-      next={fetchMoreMovies}
-      hasMore={page < total_pages}
+      dataLength={
+        doSearchedMovieResultsExist
+          ? searchedMoviesResults.length
+          : results?.length || 0
+      }
+      next={doSearchedMovieResultsExist ? searchMoreMovies : fetchMoreMovies}
+      hasMore={
+        doSearchedMovieResultsExist
+          ? searchPage < totalSearchPages
+          : page < total_pages
+      }
       loader={<h4>Loading...</h4>}
       endMessage={
         <p style={{ textAlign: "center" }}>
@@ -41,17 +71,19 @@ const HomePage = () => {
       }
     >
       <div className={styles.moviesListContainer}>
-        {data?.results.map((movie) => (
-          <MovieCard
-            id={movie.id}
-            key={movie.id}
-            title={movie.title}
-            rating={movie.vote_average}
-            description={movie.overview}
-            poster={MOVIE_POSTER_PREFIX_URL + movie.poster_path}
-            onClick={handleCardClick}
-          />
-        ))}
+        {(doSearchedMovieResultsExist ? searchedMoviesResults : results)?.map(
+          (movie) => (
+            <MovieCard
+              id={movie.id}
+              key={movie.id}
+              title={movie.title}
+              rating={movie.vote_average}
+              description={movie.overview}
+              poster={MOVIE_POSTER_PREFIX_URL + movie.poster_path}
+              onClick={handleCardClick}
+            />
+          )
+        )}
       </div>
     </InfiniteScroll>
   );

@@ -7,4 +7,14 @@ const selectMovieState = (state) => state?.movies || initialState;
 const makeSelectMoviesList = () =>
   createSelector(selectMovieState, (subState) => subState.movieList);
 
-export { makeSelectMoviesList };
+const makeSelectSearchedMovies = () =>
+  createSelector(selectMovieState, (subState) => subState.searchMovie);
+
+const makeSelectSearchQuery = () =>
+  createSelector(selectMovieState, (subState) => subState.searchQuery);
+
+export {
+  makeSelectMoviesList,
+  makeSelectSearchedMovies,
+  makeSelectSearchQuery,
+};
