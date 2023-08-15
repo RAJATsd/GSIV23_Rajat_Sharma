@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
 import MovieImageHolder from "@/components/MovieImageHolder";
-import styles from "./styles.module.css";
 import { MOVIE_POSTER_PREFIX_URL } from "@/constants";
+import styles from "./styles.module.css";
 import { fetchMovieCreditsStart, fetchMovieDetailsStart } from "./reducer";
 import { makeSelectMovieCredits, makeSelectMovieDetails } from "./selectors";
 

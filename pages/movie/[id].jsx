@@ -1,7 +1,6 @@
 import Head from "next/head";
 
 import MovieDetailsContainer from "@/containers/details";
-import { useRouter } from "next/router";
 
 export default function Home() {
   return (

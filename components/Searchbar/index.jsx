@@ -1,9 +1,9 @@
-import styles from "./styles.module.css";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
-import { useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+
+import styles from "./styles.module.css";
 import {
   makeSelectSearchedMovies,
   makeSelectSearchQuery,

@@ -1,4 +1,6 @@
 import { put, takeLatest } from "redux-saga/effects";
+
+import apiUrl from "@/utils/apiUrl";
 import {
   fetchMovieListError,
   fetchMovieListStart,
@@ -16,18 +18,10 @@ import {
 
 function* fetchMovies() {
   try {
-    const url =
-      "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZmRiMmUwYTAxNWZhMzM0MzQxYjVmMmRiMDMzYjkxZiIsInN1YiI6IjY0ZGE2MzAxMzcxMDk3MDBlMjI2ZGM4MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Tz5VNnOHjunxvCQZYRMb18vPs5a5Cjep3Qm5yieW50U",
-      },
-    };
-
-    const response = yield fetch(url, options);
+    const url = apiUrl(
+      "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1"
+    );
+    const response = yield fetch(url);
     const data = yield response.json();
 
     yield put(fetchMovieListSuccess(data));
@@ -38,17 +32,11 @@ function* fetchMovies() {
 
 function* fetchMoreMovies(action) {
   try {
-    const url = `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${action.payload}`;
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZmRiMmUwYTAxNWZhMzM0MzQxYjVmMmRiMDMzYjkxZiIsInN1YiI6IjY0ZGE2MzAxMzcxMDk3MDBlMjI2ZGM4MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Tz5VNnOHjunxvCQZYRMb18vPs5a5Cjep3Qm5yieW50U",
-      },
-    };
+    const url = apiUrl(
+      `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${action.payload}`
+    );
 
-    const response = yield fetch(url, options);
+    const response = yield fetch(url);
     const data = yield response.json();
 
     yield put(fetchMoreMoviesSuccess(data));
@@ -59,17 +47,11 @@ function* fetchMoreMovies(action) {
 
 function* searchMovie(action) {
   try {
-    const url = `https://api.themoviedb.org/3/search/movie?query=${action.payload}&include_adult=false&language=en-US&page=1`;
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZmRiMmUwYTAxNWZhMzM0MzQxYjVmMmRiMDMzYjkxZiIsInN1YiI6IjY0ZGE2MzAxMzcxMDk3MDBlMjI2ZGM4MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Tz5VNnOHjunxvCQZYRMb18vPs5a5Cjep3Qm5yieW50U",
-      },
-    };
+    const url = apiUrl(
+      `https://api.themoviedb.org/3/search/movie?query=${action.payload}&include_adult=false&language=en-US&page=1`
+    );
 
-    const response = yield fetch(url, options);
+    const response = yield fetch(url);
     const data = yield response.json();
 
     yield put(searchMovieSuccess(data));
@@ -80,17 +62,11 @@ function* searchMovie(action) {
 
 function* fetchNextMovies(action) {
   try {
-    const url = `https://api.themoviedb.org/3/search/movie?query=${action.payload.query}&include_adult=false&language=en-US&page=${action.payload.page}`;
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZmRiMmUwYTAxNWZhMzM0MzQxYjVmMmRiMDMzYjkxZiIsInN1YiI6IjY0ZGE2MzAxMzcxMDk3MDBlMjI2ZGM4MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Tz5VNnOHjunxvCQZYRMb18vPs5a5Cjep3Qm5yieW50U",
-      },
-    };
+    const url = apiUrl(
+      `https://api.themoviedb.org/3/search/movie?query=${action.payload.query}&include_adult=false&language=en-US&page=${action.payload.page}`
+    );
 
-    const response = yield fetch(url, options);
+    const response = yield fetch(url);
     const data = yield response.json();
 
     yield put(searchMoreMoviesSuccess(data));

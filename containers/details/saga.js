@@ -1,4 +1,6 @@
 import { put, takeLatest } from "redux-saga/effects";
+
+import apiUrl from "@/utils/apiUrl";
 import {
   fetchMovieCreditsError,
   fetchMovieCreditsStart,
@@ -10,17 +12,11 @@ import {
 
 function* fetchMovieDetails(action) {
   try {
-    const url = `https://api.themoviedb.org/3/movie/${action.payload}?language=en-US`;
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZmRiMmUwYTAxNWZhMzM0MzQxYjVmMmRiMDMzYjkxZiIsInN1YiI6IjY0ZGE2MzAxMzcxMDk3MDBlMjI2ZGM4MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Tz5VNnOHjunxvCQZYRMb18vPs5a5Cjep3Qm5yieW50U",
-      },
-    };
+    const url = apiUrl(
+      `https://api.themoviedb.org/3/movie/${action.payload}?language=en-US`
+    );
 
-    const response = yield fetch(url, options);
+    const response = yield fetch(url);
     const data = yield response.json();
 
     yield put(fetchMovieDetailsSuccess(data));
@@ -31,17 +27,11 @@ function* fetchMovieDetails(action) {
 
 function* fetchMovieCredits(action) {
   try {
-    const url = `https://api.themoviedb.org/3/movie/${action.payload}/credits`;
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZmRiMmUwYTAxNWZhMzM0MzQxYjVmMmRiMDMzYjkxZiIsInN1YiI6IjY0ZGE2MzAxMzcxMDk3MDBlMjI2ZGM4MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Tz5VNnOHjunxvCQZYRMb18vPs5a5Cjep3Qm5yieW50U",
-      },
-    };
+    const url = apiUrl(
+      `https://api.themoviedb.org/3/movie/${action.payload}/credits`
+    );
 
-    const response = yield fetch(url, options);
+    const response = yield fetch(url);
     const data = yield response.json();
 
     yield put(fetchMovieCreditsSuccess(data));
