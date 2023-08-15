@@ -1,17 +1,16 @@
 import { put, takeLatest } from "redux-saga/effects";
 import {
-  fetchMovieListError,
-  fetchMovieListStart,
-  fetchMovieListSuccess,
-  fetchMoreMoviesSuccess,
-  fetchMoreMoviesError,
-  fetchMoreMoviesStart,
+  fetchMovieCreditsError,
+  fetchMovieCreditsStart,
+  fetchMovieCreditsSuccess,
+  fetchMovieDetailsError,
+  fetchMovieDetailsStart,
+  fetchMovieDetailsSuccess,
 } from "./reducer";
 
-function* fetchMovies() {
+function* fetchMovieDetails(action) {
   try {
-    const url =
-      "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
+    const url = `https://api.themoviedb.org/3/movie/${action.payload}?language=en-US`;
     const options = {
       method: "GET",
       headers: {
@@ -24,15 +23,15 @@ function* fetchMovies() {
     const response = yield fetch(url, options);
     const data = yield response.json();
 
-    yield put(fetchMovieListSuccess(data));
+    yield put(fetchMovieDetailsSuccess(data));
   } catch (err) {
-    yield put(fetchMovieListError(err));
+    yield put(fetchMovieDetailsError(err));
   }
 }
 
-function* fetchMoreMovies(action) {
+function* fetchMovieCredits(action) {
   try {
-    const url = `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${action.payload}`;
+    const url = `https://api.themoviedb.org/3/movie/${action.payload}/credits`;
     const options = {
       method: "GET",
       headers: {
@@ -45,13 +44,13 @@ function* fetchMoreMovies(action) {
     const response = yield fetch(url, options);
     const data = yield response.json();
 
-    yield put(fetchMoreMoviesSuccess(data));
+    yield put(fetchMovieCreditsSuccess(data));
   } catch (err) {
-    yield put(fetchMoreMoviesError(err));
+    yield put(fetchMovieCreditsError(err));
   }
 }
 
-export default function* watchHome() {
-  yield takeLatest(fetchMovieListStart.type, fetchMovies);
-  yield takeLatest(fetchMoreMoviesStart.type, fetchMoreMovies);
+export default function* watchMovieDetails() {
+  yield takeLatest(fetchMovieDetailsStart.type, fetchMovieDetails);
+  yield takeLatest(fetchMovieCreditsStart.type, fetchMovieCredits);
 }

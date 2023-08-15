@@ -1,64 +1,60 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  movieList: {
+  movieInfo: {
     data: null,
     error: null,
     loading: false,
   },
-  nextMovies: {
+  movieCredits: {
     data: null,
     error: null,
     loading: false,
   },
 };
 
-const fetchMoviesSlice = createSlice({
-  name: "movies",
+const fetchMoviesDetailsSlice = createSlice({
+  name: "movieDetails",
   initialState,
   reducers: {
-    fetchMovieListStart(state) {
-      state.movieList.loading = true;
+    fetchMovieDetailsStart(state) {
+      state.movieInfo.loading = true;
     },
-    fetchMovieListSuccess(state, action) {
-      state.movieList.data = action.payload;
-      state.movieList.error = null;
-      state.movieList.loading = false;
+    fetchMovieDetailsSuccess(state, action) {
+      state.movieInfo.data = action.payload;
+      state.movieInfo.error = null;
+      state.movieInfo.loading = false;
     },
-    fetchMovieListError(state, action) {
-      state.movieList.data = null;
-      state.movieList.error = action.payload;
-      state.movieList.loading = false;
+    fetchMovieDetailsError(state, action) {
+      state.movieInfo.data = null;
+      state.movieInfo.error = action.payload;
+      state.movieInfo.loading = false;
     },
-    fetchMoreMoviesStart(state) {
-      state.nextMovies.loading = true;
+    fetchMovieCreditsStart(state) {
+      state.movieCredits.loading = true;
     },
-    fetchMoreMoviesSuccess(state, action) {
-      state.nextMovies.data = action.payload;
-      state.nextMovies.error = null;
-      state.nextMovies.loading = false;
-      state.movieList.data = {
-        ...action.payload,
-        results: [...state.movieList.data.results, ...action.payload.results],
-      };
+    fetchMovieCreditsSuccess(state, action) {
+      state.movieCredits.data = action.payload;
+      state.movieCredits.error = null;
+      state.movieCredits.loading = false;
     },
-    fetchMoreMoviesError(state, action) {
-      state.nextMovies.data = null;
-      state.nextMovies.error = action.payload;
-      state.nextMovies.loading = false;
+    fetchMovieCreditsError(state, action) {
+      state.movieCredits.data = null;
+      state.movieCredits.error = action.payload;
+      state.movieCredits.loading = false;
     },
   },
 });
 
 export const {
-  fetchMovieListStart,
-  fetchMovieListError,
-  fetchMovieListSuccess,
-  fetchMoreMoviesError,
-  fetchMoreMoviesStart,
-  fetchMoreMoviesSuccess,
-} = fetchMoviesSlice.actions;
+  fetchMovieCreditsError,
+  fetchMovieCreditsStart,
+  fetchMovieCreditsSuccess,
+  fetchMovieDetailsError,
+  fetchMovieDetailsStart,
+  fetchMovieDetailsSuccess,
+} = fetchMoviesDetailsSlice.actions;
 
 export { initialState };
 
-export default fetchMoviesSlice.reducer;
+export default fetchMoviesDetailsSlice.reducer;

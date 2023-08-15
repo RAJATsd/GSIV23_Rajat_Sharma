@@ -1,3 +1,4 @@
+import MovieImageHolder from "../MovieImageHolder";
 import styles from "./styles.module.css";
 
 const MovieCard = ({
@@ -10,9 +11,7 @@ const MovieCard = ({
 }) => {
   return (
     <div className={styles.movieCard} onClick={() => onClick(id)}>
-      <div className={styles.movieImageContainer}>
-        {poster && <img src={poster} alt={`${title} poster`} />}
-      </div>
+      <MovieImageHolder imgSrc={poster} altText={`${title} poster`} />
       <div className={styles.movieDetails}>
         <div className={styles.nameAndRatingContainer}>
           <div className={styles.movieName}>{title}</div>
