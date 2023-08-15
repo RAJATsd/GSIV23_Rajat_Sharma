@@ -33,8 +33,10 @@ const HomePage = () => {
   const doSearchedMovieResultsExist = searchedMoviesResults?.length > 0;
 
   useEffect(() => {
-    dispatch(fetchMovieListStart());
-  }, []);
+    if (!results?.length) {
+      dispatch(fetchMovieListStart());
+    }
+  }, [results]);
 
   const fetchMoreMovies = () => {
     dispatch(fetchMoreMoviesStart(page + 1));

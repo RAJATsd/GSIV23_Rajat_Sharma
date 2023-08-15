@@ -29,7 +29,7 @@ const MovieDetailsContainer = () => {
 
   return (
     <div className={styles.movieDetailsContainer}>
-      <div style={{ minWidth: 250 }}>
+      <div className={styles.movieImageWrapper}>
         <MovieImageHolder
           imgSrc={MOVIE_POSTER_PREFIX_URL + poster_path}
           altText={`${title} poster`}
