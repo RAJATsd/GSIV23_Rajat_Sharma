@@ -28,7 +28,7 @@ function* fetchMovieDetails(action) {
 function* fetchMovieCredits(action) {
   try {
     const url = apiUrl(
-      `https://api.themoviedb.org/3/movie/${action.payload}/credits`
+      `https://api.themoviedb.org/3/movie/${action.payload}/credits?`
     );
 
     const response = yield fetch(url);
