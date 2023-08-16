@@ -8,7 +8,7 @@ RUNNING THE APP
   - after the install is complete, in terminal run "npm run dev"
   - the app will be launched at localhost:3000 by default
 - Deployed app
-  - Visit
+  - Visit https://gsiv-23-rajat-sharma-i268qhy3g-rajatsd.vercel.app/
 
 List elements from the challenge that you think you have done well, and that exemplify your proficiency. Please describe why you chose those elements, and how they demonstrate your proficiency.
 
